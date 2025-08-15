@@ -6,6 +6,13 @@
   Global Resets & Base Styles
 =========================================*/
 
+#main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+
 /*========================================
   Navigation
 =========================================*/
@@ -13,6 +20,26 @@
 /*========================================
   Main Layout & Containers
 =========================================*/
+
+#menu-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+#upgrades-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 
 /*========================================
   Sections (Shared Styles)
@@ -23,7 +50,7 @@
 =========================================*/
 
 /*========================================
-  Interests Aside
+  interests Aside
 =========================================*/
 
 /*========================================
