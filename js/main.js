@@ -1,10 +1,24 @@
-let increment = 1;
+var countInc = 1;
+var count = 0;
+
+function onLizardClick(){
+	count += countInc;
+	const countDisplay = document.getElementById('count');
+	countDisplay.innerHTML = count;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	const lizardbutton = document.getElementById('lizard-button');
+
+	lizardbutton.addEventListener('click', onLizardClick);
+	
+});
+
 let addPointCost = 10;
 let multPointCost = 100;
 let autoLizardCost = 1000;
 // starting 500 ms ahead so the first auto is exactly 5
 let interval = 5500; // in ms, starts at 5
-let count = 0;
 let timer;
 
 const lizardbutton = document.getElementById('lizard-button');
@@ -62,7 +76,6 @@ function startIncrement() {
 }
 
 function clickButton() {
-	count += increment;
+	count += countInc;
 	countDisplay.innerHTML = count;
 }
-
