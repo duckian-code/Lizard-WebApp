@@ -1,19 +1,6 @@
 var countInc = 1;
 var count = 0;
 
-function onLizardClick(){
-	count += countInc;
-	const countDisplay = document.getElementById('count');
-	countDisplay.innerHTML = count;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-	const lizardbutton = document.getElementById('lizard-button');
-
-	lizardbutton.addEventListener('click', onLizardClick);
-	
-});
-
 let addPointCost = 10;
 let multPointCost = 100;
 let autoLizardCost = 1000;
@@ -34,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	addPointUpgBtn.addEventListener('click', function() {
 		if (count >= addPointCost) {
-			increment += 1;
+			countInc += 1;
 			count -= addPointCost;
 			countDisplay.innerHTML = count;
 			addPointCost *= 2;
@@ -45,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	multiPointUpgBtn.addEventListener('click', function() {
 		if (count >= multPointCost) {
-			increment *= 2;
+			countInc *= 2;
 			count -= multPointCost;
 			countDisplay.innerHTML = count;
 			multPointCost *= 2;
