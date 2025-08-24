@@ -13,6 +13,10 @@ const countDisplay = document.getElementById('count');
 const addPointUpgBtn = document.getElementById('add-point-upgrade');
 const multiPointUpgBtn = document.getElementById('mult-point-upgrade');
 const autoLizardBtn = document.getElementById('auto-lizard');
+const options = document.getElementById("game-options-area");
+const toggleBtn = document.getElementById("toggle-options");
+const area = document.getElementById("achievement-area");
+const popup = document.createElement("div");
 
 document.addEventListener('DOMContentLoaded', function () {
 	lizardbutton.addEventListener('click', function () {
@@ -66,3 +70,20 @@ function clickButton() {
 	count += countInc;
 	countDisplay.innerHTML = count;
 }
+
+toggleBtn.addEventListener("click", () => {
+  options.classList.toggle("show");
+});
+
+// THIS IS THE CODE NEEDED TO SHOW A POPUP ACHIEVEMENT 
+function showAchievement(text) {
+  const popup = document.createElement("div");
+  popup.className = "achievement";
+  popup.textContent = text;
+  area.appendChild(popup);
+
+  setTimeout(() => popup.remove(), 4000);
+}
+//WHEN YOU WANT TO CALL THE FUNCTION ABOVE IT SHOULD LOOK LIKE THIS:
+//showAchievement("Achievement Unlocked: First Steps!");
+//THIS IS THE END OF THE ACHIEVMENT CODE
