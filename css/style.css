@@ -7,6 +7,7 @@
 	--bg-secondary: #fff;
 	--text-primary: #333;
 	--color-primary: #98cd00;
+  --color-secondary: #3700cd;
 	--color-accent: #b6f500;
 	--color-hover: #a4dd00;
 	--shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -44,6 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-left: 10px;
 }
 
 /*========================================
@@ -63,6 +65,8 @@ button {
   box-shadow: var(--shadow);
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  font-size: larger;
+  min-width: 200px;
 }
 
 /* use this to disable buttone, like the auto lizard button after it is fully upgraded */
@@ -81,7 +85,7 @@ button:hover {
 }
 
 #lizard-button {
-  background: var(--color-primary);
+  background: var(--color-secondary);
   border: none;
   border-radius: 50%;
   padding: 20px;
@@ -132,6 +136,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  padding-right: 10px;
 }
 
 @keyframes slideIn {

@@ -87,3 +87,9 @@ function showAchievement(text) {
 //WHEN YOU WANT TO CALL THE FUNCTION ABOVE IT SHOULD LOOK LIKE THIS:
 //showAchievement("Achievement Unlocked: First Steps!");
 //THIS IS THE END OF THE ACHIEVMENT CODE
+
+//CALL THIS FUNCTION WHEN REBIRTH IS UNLOCKED:
+// Example: call this when the achievement is unlocked
+function unlockRebirth() {
+    document.getElementById("rebirth").style.display = "inline-block";
+}
