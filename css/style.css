@@ -71,8 +71,11 @@ button {
 
 /* use this to disable buttone, like the auto lizard button after it is fully upgraded */
 button:disabled {
-  background: #ccc;
   cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background: #ccc;
 }
 
 button:hover {
@@ -88,10 +91,11 @@ button:hover {
   background: var(--color-secondary);
   border: none;
   border-radius: 50%;
-  padding: 20px;
+  padding: 40px;
   box-shadow: var(--shadow);
   cursor: pointer;
   transition: transform 0.1s ease;
+  user-select: none; /* added to attempt to patch autolizard */
 }
 
 #lizard-button:hover {

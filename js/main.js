@@ -21,6 +21,7 @@ const popup = document.createElement("div");
 const addLvlTxt = document.getElementById("addLvl");
 const multLvlTxt = document.getElementById("multLvl");
 const autoLvlTxt = document.getElementById("autoLvl");
+const cpsTxt = document.getElementById("cps");
 let addLvl = 1;
 let multLvl = 1;
 let autoLvl = 1;
@@ -58,19 +59,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	autoLizardBtn.addEventListener('click', function() {
 		if (count >= autoLizardCost) {
-			let maxSpeed = 200;
+			let maxSpeed = 100;
 			interval = Math.max(maxSpeed, interval - 500);
 			if (interval == maxSpeed) {
 				autoLvlTxt.textContent = "MAX LEVEL";
+				startIncrement();
 				autoLvlTxt.classList.add("rainbow");
 				document.querySelector("#auto-lizard p").textContent = "-------";
+				updateCPS();
+				autoLizardBtn.disabled = true;
 				return;
 			}
 			count -= autoLizardCost;
-			autoLizardCost *= 2;
+			autoLizardCost *= 10;
 			countDisplay.innerHTML = count;
 			// ensures the lowest the button can go is 200 ms
 			startIncrement();
+			// shows CPS to the nearest 2 decimal places
+			updateCPS();
 			document.querySelector("#auto-lizard p").textContent = autoLizardCost;
 			autoLvl++;
 			autoLvlTxt.textContent = autoLvl.toString();
@@ -78,7 +84,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	})
 });
 
+function truncateNumber(num) {
+	return Math.trunc(num * 100) / 100;
+}
+
+function updateCPS() {
+	let cps = 1000 / interval;
+	// console.log("interval: " + interval);
+	// console.log("CPS: " + cps);
+	cpsTxt.textContent = truncateNumber(cps);
+}
+
 function startIncrement() {
+	console.log(interval);
 	if (timer) {
 		clearInterval(timer);
 	}
@@ -89,7 +107,8 @@ function startIncrement() {
 
 function clickButton() {
 	count += countInc;
-	countDisplay.innerHTML = count;
+	// console.log("Click !");
+	countDisplay.textContent = count;
 }
 
 toggleBtn.addEventListener("click", () => {
