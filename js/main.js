@@ -1,13 +1,15 @@
-var countInc = 1;
-var count = 0;
-
-let addPointCost = 10;
-let multPointCost = 100;
-let autoLizardCost = 1000;
-// starting 500 ms ahead so the first auto is exactly 5
-let interval = 5500; // in ms, starts at 5
 let timer;
 
+const gameState = {
+	countInc: 1,
+	count: 0,
+	addPointCost: 10,
+	multPointCost: 100,
+	autoLizardCost: 1000,
+	// starting 500 ms ahead so the first auto is exactly 5
+ // in ms, starts at 5
+	interval: 5500
+}
 const lizardbutton = document.getElementById('lizard-button');
 const countDisplay = document.getElementById('count');
 const addPointUpgBtn = document.getElementById('add-point-upgrade');
@@ -32,46 +34,46 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	addPointUpgBtn.addEventListener('click', function() {
-		if (count >= addPointCost) {
-			countInc += 1;
-			count -= addPointCost;
-			countDisplay.innerHTML = count;
-			addPointCost *= 2;
+		if (gameState.count >= gameState.addPointCost) {
+			gameState.countInc += 1;
+			gameState.count -= gameState.addPointCost;
+			countDisplay.innerHTML = gameState.count;
+			gameState.addPointCost *= 2;
 			// querySelector selects p element within button
-			document.querySelector("#add-point-upgrade p").textContent = addPointCost;
+			document.querySelector("#add-point-upgrade p").textContent = gameState.addPointCost;
 			addLvl++;
 			addLvlTxt.textContent = addLvl.toString();
 		}
 	});
 
 	multiPointUpgBtn.addEventListener('click', function() {
-		if (count >= multPointCost) {
-			countInc *= 2;
-			count -= multPointCost;
-			countDisplay.innerHTML = count;
-			multPointCost *= 2;
-			document.querySelector("#mult-point-upgrade p").textContent = multPointCost;
+		if (gameState.count >= gameState.multPointCost) {
+			gameState.countInc *= 2;
+			gameState.count -= gameState.multPointCost;
+			countDisplay.innerHTML = gameState.count;
+			gameState.multPointCost *= 2;
+			document.querySelector("#mult-point-upgrade p").textContent = gameState.multPointCost;
 			multLvl++;
 			multLvlTxt.textContent = multLvl.toString();
 		}
 	});
 
 	autoLizardBtn.addEventListener('click', function() {
-		if (count >= autoLizardCost) {
+		if (gameState.count >= gameState.autoLizardCost) {
 			let maxSpeed = 200;
-			interval = Math.max(maxSpeed, interval - 500);
-			if (interval == maxSpeed) {
+			gameState.interval = Math.max(maxSpeed, gameState.interval - 500);
+			if (gameState.interval == maxSpeed) {
 				autoLvlTxt.textContent = "MAX LEVEL";
 				autoLvlTxt.classList.add("rainbow");
 				document.querySelector("#auto-lizard p").textContent = "-------";
 				return;
 			}
-			count -= autoLizardCost;
-			autoLizardCost *= 2;
-			countDisplay.innerHTML = count;
+			gameState.count -= gameState.autoLizardCost;
+			gameState.autoLizardCost *= 2;
+			countDisplay.innerHTML = gameState.count;
 			// ensures the lowest the button can go is 200 ms
 			startIncrement();
-			document.querySelector("#auto-lizard p").textContent = autoLizardCost;
+			document.querySelector("#auto-lizard p").textContent = gameState.autoLizardCost;
 			autoLvl++;
 			autoLvlTxt.textContent = autoLvl.toString();
 		}
@@ -84,12 +86,12 @@ function startIncrement() {
 	}
 	timer = setInterval(() => {
 		clickButton();
-	}, interval);
+	}, gameState.interval);
 }
 
 function clickButton() {
-	count += countInc;
-	countDisplay.innerHTML = count;
+	gameState.count += gameState.countInc;
+	countDisplay.innerHTML = gameState.count;
 }
 
 toggleBtn.addEventListener("click", () => {
