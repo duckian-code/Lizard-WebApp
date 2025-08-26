@@ -17,6 +17,14 @@ const options = document.getElementById("game-options-area");
 const toggleBtn = document.getElementById("toggle-options");
 const area = document.getElementById("achievement-area");
 const popup = document.createElement("div");
+// upgrade level tracking variables
+const addLvlTxt = document.getElementById("addLvl");
+const multLvlTxt = document.getElementById("multLvl");
+const autoLvlTxt = document.getElementById("autoLvl");
+let addLvl = 1;
+let multLvl = 1;
+let autoLvl = 1;
+
 
 document.addEventListener('DOMContentLoaded', function () {
 	lizardbutton.addEventListener('click', function () {
@@ -31,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			addPointCost *= 2;
 			// querySelector selects p element within button
 			document.querySelector("#add-point-upgrade p").textContent = addPointCost;
+			addLvl++;
+			addLvlTxt.textContent = addLvl.toString();
 		}
 	});
 
@@ -41,18 +51,29 @@ document.addEventListener('DOMContentLoaded', function () {
 			countDisplay.innerHTML = count;
 			multPointCost *= 2;
 			document.querySelector("#mult-point-upgrade p").textContent = multPointCost;
+			multLvl++;
+			multLvlTxt.textContent = multLvl.toString();
 		}
 	});
 
 	autoLizardBtn.addEventListener('click', function() {
 		if (count >= autoLizardCost) {
+			let maxSpeed = 200;
+			interval = Math.max(maxSpeed, interval - 500);
+			if (interval == maxSpeed) {
+				autoLvlTxt.textContent = "MAX LEVEL";
+				autoLvlTxt.classList.add("rainbow");
+				document.querySelector("#auto-lizard p").textContent = "-------";
+				return;
+			}
 			count -= autoLizardCost;
 			autoLizardCost *= 2;
 			countDisplay.innerHTML = count;
 			// ensures the lowest the button can go is 200 ms
-			interval = Math.max(200, interval - 500);
 			startIncrement();
 			document.querySelector("#auto-lizard p").textContent = autoLizardCost;
+			autoLvl++;
+			autoLvlTxt.textContent = autoLvl.toString();
 		}
 	})
 });
