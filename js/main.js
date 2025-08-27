@@ -10,7 +10,8 @@ const DEFAULT_GAMESTATE = {
 	interval: 5500,
 	addLvl: 1,
 	multLvl: 1,
-	autoLvl: 1
+	autoLvl: 1,
+	cps: 0
 }
 let gameState = structuredClone(DEFAULT_GAMESTATE);
 const saveButton = document.getElementById('save-game');
@@ -31,6 +32,28 @@ const addLvlTxt = document.getElementById("addLvl");
 const multLvlTxt = document.getElementById("multLvl");
 const autoLvlTxt = document.getElementById("autoLvl");
 const cpsTxt = document.getElementById("cps");
+
+function startIncrement() {
+	console.log(gameState.interval);
+	if (timer) {
+		clearInterval(timer);
+	}
+	timer = setInterval(() => {
+		clickButton();
+	}, gameState.interval);
+}
+
+function clickButton() {
+	gameState.count += gameState.countInc;
+	countDisplay.textContent = gameState.count;
+}
+
+function updateCPS() {
+	gameState.cps = 1000 / gameState.interval;
+	// console.log("interval: " + interval);
+	// console.log("CPS: " + cps);
+	cpsTxt.textContent = truncateNumber(gameState.cps);
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 	loadGame();
@@ -125,28 +148,6 @@ function truncateNumber(num) {
 	return Math.trunc(num * 100) / 100;
 }
 
-function updateCPS() {
-	let cps = 1000 / interval;
-	// console.log("interval: " + interval);
-	// console.log("CPS: " + cps);
-	cpsTxt.textContent = truncateNumber(cps);
-}
-
-function startIncrement() {
-	console.log(interval);
-	if (timer) {
-		clearInterval(timer);
-	}
-	timer = setInterval(() => {
-		clickButton();
-	}, gameState.interval);
-}
-
-function clickButton() {
-	gameState.count += gameState.countInc;
-	countDisplay.textContent = gameState.count;
-}
-
 toggleBtn.addEventListener("click", () => {
   options.classList.toggle("show");
 });
@@ -167,4 +168,5 @@ function showAchievement(text) {
 //CALL THIS FUNCTION WHEN REBIRTH IS UNLOCKED:
 function unlockRebirth() {
     document.getElementById("rebirth").style.display = "inline-block";
+}
 }
