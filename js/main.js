@@ -30,8 +30,7 @@ const popup = document.createElement("div");
 const addLvlTxt = document.getElementById("addLvl");
 const multLvlTxt = document.getElementById("multLvl");
 const autoLvlTxt = document.getElementById("autoLvl");
-
-
+const cpsTxt = document.getElementById("cps");
 
 document.addEventListener('DOMContentLoaded', function () {
 	loadGame();
@@ -72,10 +71,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			gameState.interval = Math.max(maxSpeed, gameState.interval - 500);
 			if (gameState.interval == maxSpeed) {
 				autoLvlTxt.textContent = "MAX LEVEL";
+				startIncrement();
 				autoLvlTxt.classList.add("rainbow");
 				document.querySelector("#auto-lizard p").textContent = "-------";
+				updateCPS();
+				autoLizardBtn.disabled = true;
 				return;
 			}
+
 			gameState.count -= gameState.autoLizardCost;
 			gameState.autoLizardCost *= 2;
 			countDisplay.innerHTML = gameState.count;
@@ -117,9 +120,20 @@ function loadGame(){
 		refreshGameState();
 		console.log("Latest Game Loaded!");
 	}
+
+function truncateNumber(num) {
+	return Math.trunc(num * 100) / 100;
+}
+
+function updateCPS() {
+	let cps = 1000 / interval;
+	// console.log("interval: " + interval);
+	// console.log("CPS: " + cps);
+	cpsTxt.textContent = truncateNumber(cps);
 }
 
 function startIncrement() {
+	console.log(interval);
 	if (timer) {
 		clearInterval(timer);
 	}
@@ -130,7 +144,7 @@ function startIncrement() {
 
 function clickButton() {
 	gameState.count += gameState.countInc;
-	countDisplay.innerHTML = gameState.count;
+	countDisplay.textContent = gameState.count;
 }
 
 toggleBtn.addEventListener("click", () => {
