@@ -14,6 +14,35 @@
 </head>
 
 <body>
+	<div id="title-card">
+		<h1>OnlyLizard</h1>
+		<h3>Press Button for Lizard. Upgrade for MORE LIZARD</h3>
+	</div>
+	<div id="tutorial-btn">
+		<button id="open-tutorial">Open Tutorial</button>
+	</div>
+	<div id="tutorial-popup">
+		<div id="tutorial-box" class="overlay">
+			<h2>Tutorial</h2>
+			<p>Welcome to <b><i>OnlyLizard</i></b> ! Your goal is simple:</p>
+			<p><i>click lizard</i></p>
+			<hr>
+			<p>You have game options on the left and upgrades on the right.
+				<br><br> You can <b>save</b>, <b>load</b>, or <b>reset</b> your game at any time in the 
+				<b>Game Options</b> menu... don't forget to save or you will lose your prescious 
+				lizards ! <br><br>
+				On the right of the page are your upgrades. <b>Add Upgrade</b> adds to the number of lizards
+				you get per click. <b>Mult Upgrade</b> is like the prior upgrade, but multiplies the number of
+				lizards you get instead. Finally, the <b>AutoLizard</b> will click for you ! Increasing its level increases
+				your CPS (clicks-per-second).
+			</p>
+			<hr>
+			<p>When you reach a certain number of lizards... you may <b>Prestige</b>, boosting your upgrades and letting
+			you get even more lizards even quicker !
+			<br><br>Good luck, and happy Lizard</p>
+			<button id="close-tutorial">X</button>
+		</div>
+	</div>
 	<main id="main-content" role="main">
 		<section id="menu-items">
 			<section id="achievement-area">
@@ -52,6 +81,7 @@
 		</section>
 	</main>
 	<script src="js/main.js"></script>
+	<script src="js/tutorial.js"></script>
 </body>
 
 </html>

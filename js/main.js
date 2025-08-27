@@ -45,6 +45,7 @@ function startIncrement() {
 
 function clickButton() {
 	gameState.count += gameState.countInc;
+	throttleLizard();
 	countDisplay.textContent = gameState.count;
 }
 
@@ -53,6 +54,24 @@ function updateCPS() {
 	// console.log("interval: " + interval);
 	// console.log("CPS: " + cps);
 	cpsTxt.textContent = truncateNumber(gameState.cps);
+}
+// throttling and sound functions
+let lastTimeSoundPlayed = 0;
+
+function playLizard() {
+	var audio = new Audio('/assets/lizard.mp3');
+	audio.play();
+}
+function throttleLizard(func, limit) {
+	const now = Date.now(); // get current time in milliseconds
+	if (now - lastTimeSoundPlayed >= 500) {
+		lastTimeSoundPlayed = now;
+		playLizard();
+	}
+}
+
+function truncateNumber(num) {
+	return Math.trunc(num * 100) / 100;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -99,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				document.querySelector("#auto-lizard p").textContent = "-------";
 				updateCPS();
 				autoLizardBtn.disabled = true;
+				console.log('button disabled');
 				return;
 			}
 
@@ -143,10 +163,6 @@ function loadGame(){
 		refreshGameState();
 		console.log("Latest Game Loaded!");
 	}
-
-function truncateNumber(num) {
-	return Math.trunc(num * 100) / 100;
-}
 
 toggleBtn.addEventListener("click", () => {
   options.classList.toggle("show");
