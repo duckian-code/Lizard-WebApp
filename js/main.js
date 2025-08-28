@@ -4,10 +4,10 @@ const DEFAULT_GAMESTATE = {
 	count: 0,
 	addPointCost: 10,
 	multPointCost: 100,
-	autoLizardCost: 1000,
+	autoLizardCost: 10000,
 	// starting 500 ms ahead so the first auto is exactly 5
  // in ms, starts at 5
-	interval: 5500,
+	interval: 2500,
 	addLvl: 1,
 	multLvl: 1,
 	autoLvl: 1,
@@ -34,7 +34,7 @@ const autoLvlTxt = document.getElementById("autoLvl");
 const cpsTxt = document.getElementById("cps");
 
 function startIncrement() {
-	console.log(gameState.interval);
+	// console.log(gameState.interval);
 	if (timer) {
 		clearInterval(timer);
 	}
@@ -84,10 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	newGameButton.addEventListener('click', newGame);
 	addPointUpgBtn.addEventListener('click', function() {
 		if (gameState.count >= gameState.addPointCost) {
-			gameState.countInc += 1;
+			// gameplay tweak: increment goes up by upgrade level instead of 1
+			gameState.countInc += gameState.addLvl;
 			gameState.count -= gameState.addPointCost;
+			console.log(gameState.countInc);
 			countDisplay.innerHTML = gameState.count;
-			gameState.addPointCost *= 2;
+			gameState.addPointCost = Math.trunc(gameState.addPointCost * 1.5);
 			// querySelector selects p element within button
 			document.querySelector("#add-point-upgrade p").textContent = gameState.addPointCost;
 			gameState.addLvl++;
@@ -100,7 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			gameState.countInc *= 2;
 			gameState.count -= gameState.multPointCost;
 			countDisplay.innerHTML = gameState.count;
-			gameState.multPointCost *= 2;
+			// gameplay tweak: mult cost increased
+			gameState.multPointCost = Math.trunc(gameState.multPointCost * 2.25);
 			document.querySelector("#mult-point-upgrade p").textContent = gameState.multPointCost;
 			gameState.multLvl++;
 			multLvlTxt.textContent = gameState.multLvl.toString();
@@ -109,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	autoLizardBtn.addEventListener('click', function() {
 		if (gameState.count >= gameState.autoLizardCost) {
-			let maxSpeed = 200;
-			gameState.interval = Math.max(maxSpeed, gameState.interval - 500);
+			let maxSpeed = 100;
+			gameState.interval = Math.max(maxSpeed, gameState.interval - 250);
 			if (gameState.interval == maxSpeed) {
 				autoLvlTxt.textContent = "MAX LEVEL";
 				startIncrement();
@@ -123,10 +126,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			gameState.count -= gameState.autoLizardCost;
-			gameState.autoLizardCost *= 2;
+			// gameplay tweak: autolizard MUCH more expensive
+			gameState.autoLizardCost *= 100 * gameState.autoLvl;
 			countDisplay.innerHTML = gameState.count;
 			// ensures the lowest the button can go is 200 ms
 			startIncrement();
+			updateCPS();
 			document.querySelector("#auto-lizard p").textContent = gameState.autoLizardCost;
 			gameState.autoLvl++;
 			autoLvlTxt.textContent = gameState.autoLvl.toString();
